@@ -36,9 +36,9 @@
 
 **Deklaracje (pakiet `order`):**
 
-- `src/main/java/pl/pollub/coffeecraft/order/Order.java – agreguje pozycje zamówienia (lista Component) i liczy total().`
-- `src/main/java/pl/pollub/coffeecraft/order/OrderItem.java – pojedyncza pozycja (opcjonalna, pomocnicza).`
-- `src/main/java/pl/pollub/coffeecraft/order/OrderBuilder.java – Builder z fluent API: withItem(...), withNote(...), build().`
+- `/order/Order.java – agreguje pozycje zamówienia (lista Component) i liczy total().`
+- `/order/OrderItem.java – pojedyncza pozycja (opcjonalna, pomocnicza).`
+- `/order/OrderBuilder.java – Builder z fluent API: withItem(...), withNote(...), build().`
 
 **Użycie:**
 - `Main.java`  
@@ -52,8 +52,8 @@
 
 **Deklaracje (pakiet `common`):**
 
-- `src/main/java/pl/pollub/coffeecraft/common/ConfigSingleton.java – Singleton (holder idiom) z walutą i inną konfiguracją.`
-- `src/main/java/pl/pollub/coffeecraft/common/LoggerSingleton.java – Singleton do logowania (info(String)).`
+- `/common/ConfigSingleton.java – Singleton (holder idiom) z walutą i inną konfiguracją.`
+- `/common/LoggerSingleton.java – Singleton do logowania (info(String)).`
 
 **Użycie:**
 - `Main.java`  
@@ -65,8 +65,8 @@
 
 **Deklaracje (pakiet `recipe`):**
 
-- `src/main/java/pl/pollub/coffeecraft/recipe/RecipePrototype.java – Prototype (clone() + settery fluent).`
-- `src/main/java/pl/pollub/coffeecraft/recipe/BaseRecipes.java – gotowe prototypy (houseLatte(), flatWhite()).`
+- `/recipe/RecipePrototype.java – Prototype (clone() + settery fluent).`
+- `/recipe/BaseRecipes.java – gotowe prototypy (houseLatte(), flatWhite()).`
 
 **Użycie:**
 - `Main.java`  
@@ -78,10 +78,10 @@
 
 **Deklaracje (pakiet `addons`):**
 
--`src/main/java/pl/pollub/coffeecraft/addons/DrinkDecorator.java – abstrakcyjny Decorator (deleguje do Drink).`
-- `src/main/java/pl/pollub/coffeecraft/addons/WithExtraShot.java – dekorator (+3.0 do cost()).`
-- `src/main/java/pl/pollub/coffeecraft/addons/WithVanilla.java – dekorator (+2.0 do cost()).`
-- `src/main/java/pl/pollub/coffeecraft/addons/WithWhippedCream.java – dekorator (+2.5 do cost()).`
+-`/addons/DrinkDecorator.java – abstrakcyjny Decorator (deleguje do Drink).`
+- `/addons/WithExtraShot.java – dekorator (+3.0 do cost()).`
+- `/addons/WithVanilla.java – dekorator (+2.0 do cost()).`
+- `/addons/WithWhippedCream.java – dekorator (+2.5 do cost()).`
 
 **Użycie:**
 - `Main.java`  
@@ -95,11 +95,11 @@ Każdy dekorator zmienia name() i podnosi cost().
 
 **Deklaracje (pakiet `payment`):**
 
-- `src/main/java/pl/pollub/coffeecraft/payment/PaymentProcessor.java – docelowe API (pay(double)).`
-- `src/main/java/pl/pollub/coffeecraft/payment/ExternalPayX.java – „zewnętrzne” API 1 (metoda charge(int cents)).`
-- `src/main/java/pl/pollub/coffeecraft/payment/ExternalPayY.java – „zewnętrzne” API 2 (metoda makePayment(BigDecimal)).`
-- `src/main/java/pl/pollub/coffeecraft/payment/PayXAdapter.java – Adapter (przelicza złotówki na grosze i woła charge).`
-- `src/main/java/pl/pollub/coffeecraft/payment/PayYAdapter.java – Adapter (opakowuje makePayment(BigDecimal)).`
+- `/payment/PaymentProcessor.java – docelowe API (pay(double)).`
+- `/payment/ExternalPayX.java – „zewnętrzne” API 1 (metoda charge(int cents)).`
+- `/payment/ExternalPayY.java – „zewnętrzne” API 2 (metoda makePayment(BigDecimal)).`
+- `/payment/PayXAdapter.java – Adapter (przelicza złotówki na grosze i woła charge).`
+- `/payment/PayYAdapter.java – Adapter (opakowuje makePayment(BigDecimal)).`
 
 **Użycie:**
 - `Main.java`  
@@ -111,9 +111,9 @@ Każdy dekorator zmienia name() i podnosi cost().
 
 **Deklaracje (pakiet `bundle`):**
 
-- `src/main/java/pl/pollub/coffeecraft/bundle/Component.java – wspólny interfejs (name(), price()).`
-- `src/main/java/pl/pollub/coffeecraft/bundle/SimpleItem.java – Liść (pojedyncza pozycja z ceną).`
-- `src/main/java/pl/pollub/coffeecraft/bundle/Bundle.java – Kompozyt (lista Component, metoda add(...), price() sumuje dzieci).`
+- `/bundle/Component.java – wspólny interfejs (name(), price()).`
+- `/bundle/SimpleItem.java – Liść (pojedyncza pozycja z ceną).`
+- `/bundle/Bundle.java – Kompozyt (lista Component, metoda add(...), price() sumuje dzieci).`
 
 **Użycie:**
 - `Main.java`  
