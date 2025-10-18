@@ -21,11 +21,11 @@
 1. **Factory Method** – `DrinkFactory` tworzy napoje (`Latte`, `Espresso`, `Americano`).  
 
 **Deklaracje (pakiet `drink`):**
-- `src/main/java/pl/pollub/coffeecraft/drink/Drink.java` – interfejs produktu (`name()`, `cost()`).
-- `src/main/java/pl/pollub/coffeecraft/drink/Espresso.java` – produkt konkretny.
-- `src/main/java/pl/pollub/coffeecraft/drink/Americano.java` – produkt konkretny.
-- `src/main/java/pl/pollub/coffeecraft/drink/Latte.java` – produkt konkretny.
-- `src/main/java/pl/pollub/coffeecraft/drink/DrinkFactory.java` – **Factory Method**: `create(String type)` zwraca odpowiedni `Drink`.
+- `/drink/Drink.java` – interfejs produktu (`name()`, `cost()`).
+- `/drink/Espresso.java` – produkt konkretny.
+- `/drink/Americano.java` – produkt konkretny.
+- `/drink/Latte.java` – produkt konkretny.
+- `/drink/DrinkFactory.java` – **Factory Method**: `create(String type)` zwraca odpowiedni `Drink`.
 
 **Użycie:**
 - `Main.java`  
