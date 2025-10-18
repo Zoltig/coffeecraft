@@ -2,7 +2,7 @@
 
 ---
 
-## 📂 Struktura projektu
+## Struktura projektu
 
 - **app** – zawiera klasę `Main`, która demonstruje działanie wszystkich wzorców w praktyce.  
 - **addons** – implementuje wzorzec **Decorator** (dodatki do kaw, np. `WithExtraShot`, `WithVanilla`, `WithWhippedCream`).  
@@ -16,7 +16,7 @@
 
 ---
 
-## 🧩 Zaimplementowane wzorce
+## Zaimplementowane wzorce
 
 1. **Factory Method** – `DrinkFactory` tworzy napoje (`Latte`, `Espresso`, `Americano`).  
 2. **Builder** – `OrderBuilder` pozwala tworzyć zamówienia krok po kroku.  
@@ -28,11 +28,11 @@
 
 ---
 
-## ▶️ Uruchamianie
+## Uruchamianie
 
 1. **Sklonuj repozytorium**
    ```bash
-   git clone https://github.com/<twoje_repo>/coffeecraft.git
+   git clone https://github.com/https://github.com/Zoltig/coffeecraft.git
    cd coffeecraft
 
 2. **Zbuduj projekt**
@@ -44,7 +44,7 @@
    mvn exec:java
 
 
-## ⚙️ Testy jednostkowe
+## Testy jednostkowe
 
 Projekt używa JUnit 5.
 
