@@ -150,7 +150,154 @@ Testowane wzorce:
 - Composite – suma cen w zestawie.
 - Adapter – wywołanie poprawnej metody płatności.
 - Prototype – niezależność kopii przepisu.
-
 **Zbuduj projekt**
-   ```bash
-   mvn test
+- ```bash
+  mvn test
+  
+# ⚙️ CoffeeCraft – Wzorce Projektowe (Lab 2 – Wzorce behawioralne)
+
+Druga część projektu – implementacja **7 wzorców czynnościowych (behawioralnych)**  
+w ramach systemu obsługi zamówień kawowych.
+
+Wzorce wykorzystują istniejące elementy z Lab 1 (Order, Bundle, Payment, Recipe itd.)  
+i rozszerzają działanie aplikacji o logikę sterowania, komunikacji, powiadomień i akcji.
+
+---
+
+## 📂 Struktura projektu (część behawioralna)
+
+Wszystkie wzorce mnożone są w nowym pakiecie:
+/src/main/java/pl/pollub/coffeecraft/behavior/
+
+
+W nim podzielone podpakiety:
+
+- **strategy** – wzorzec *Strategy* (różne sposoby liczenia ceny).
+- **command** – wzorzec *Command* (polecenia wykonywane na zamówieniu).
+- **iterator** – wzorzec *Iterator* (iteracja po elementach zamówienia).
+- **observer** – wzorzec *Observer* (publikowanie zdarzeń i subskrypcja).
+- **mediator** – wzorzec *Mediator* (pośredniczenie płatności + powiadomień).
+- **state** – wzorzec *State* (cykl życia zamówienia).
+- **memento** – wzorzec *Memento* (zapisywanie/odtwarzanie stanu edytowanego zamówienia).
+- **test** – testy jednostkowe każdego z 7 wzorców.
+
+---
+
+# 🧩 Zaimplementowane wzorce behawioralne
+
+Poniżej znajdziesz **dokładne deklaracje kodu**, **gdzie wzorzec jest zadeklarowany**,  
+**gdzie użyty**, oraz krótkie objaśnienie działania – identycznie jak w README z Lab 1.
+
+---
+
+# 1. Strategy – różne strategie liczenia ceny zamówienia
+
+### Deklaracje (pakiet `behavior/strategy`)
+- `OrderPricingStrategy` – interfejs strategii (`apply(double total)`).
+- `NoDiscount` – strategia domyślna (zwraca total bez zmian).
+- `PercentDiscount` – strategia procentowa (np. -10%).
+- `OrderPricer` – kontekst korzystający ze strategii.
+
+### Użycie
+    var pricer = new OrderPricer();
+    System.out.println(pricer.total(order));
+    
+    pricer.setStrategy(new PercentDiscount(0.10));
+    System.out.println(pricer.total(order));
+
+
+# 2. Command – wykonywanie poleceń na obiekcie (np. dodanie pozycji)
+### Deklaracje (pakiet behavior/command)
+- Command – interfejs (execute()).
+- AddItemCommand – komenda dodająca pozycję do OrderEditor.
+OrderInvoker – wywoływacz poleceń (run(Command)).
+
+### Użycie
+    var editor = new OrderEditor();
+    var cmd = new AddItemCommand(editor, croissant);
+    var invoker = new OrderInvoker();
+    invoker.run(cmd);
+
+Cel: wykonywanie akcji jako obiektów – gotowe do kolejkowania lub undo/redo.
+
+# 3. Iterator – iterowanie po elementach zamówienia
+### Deklaracje (pakiet behavior/iterator)
+- OrderIterator – własna implementacja Iteratora dla List<Component>.
+
+### Użycie
+    var it = new OrderIterator(order.items());
+    while(it.hasNext()) {
+        System.out.println(it.next().name());
+    }
+
+Cel: jednolity sposób przechodzenia po elementach zamówienia, bez ujawniania listy.
+
+# 4. Observer – powiadamianie subskrybentów o zdarzeniach
+### Deklaracje (pakiet behavior/observer)
+- OrderEvent – enum zdarzeń (ITEM_ADDED, PAID, SERVED).
+- OrderObserver – interfejs obserwatora (onEvent(event, msg)).
+- OrderPublisher – wydawca zdarzeń (add(), publish()).
+- ConsoleObserver – obserwator wypisujący powiadomienia na konsolę.
+
+### Użycie
+    var publisher = new OrderPublisher();
+    publisher.add(new ConsoleObserver());
+    publisher.publish(OrderEvent.PAID, "Zamówienie opłacone");
+
+Cel: separacja logiki powiadomień od logiki biznesowej.
+
+
+# 5. Mediator – pośrednik między płatnościami a powiadomieniami
+### Deklaracje (pakiet behavior/mediator)
+- OrderMediator – obsługuje płatność + publikację zdarzeń.
+
+### Użycie
+    var mediator = new OrderMediator(pay, publisher);
+    mediator.checkout(order);
+
+Cel: uniknięcie bezpośrednich zależności: Order → Payment → Observer.
+
+
+# 6. State – reprezentuje różne stany zamówienia
+### Deklaracje (pakiet behavior/state)
+- OrderState – enum (NEW, PAID, SERVED).
+- OrderLifecycle – maszyna stanów (pay(), serve(), state()).
+
+### Użycie
+    var lifecycle = new OrderLifecycle();
+    lifecycle.pay();
+    lifecycle.serve();
+
+Cel: jasne zasady zmiany stanów bez ifów porozrzucanych po kodzie.
+
+# 7. Memento – zapisywanie i odtwarzanie stanu edytowanego zamówienia
+### Deklaracje (pakiet behavior/memento)
+- OrderEditor – edytor tworzący i modyfikujący zamówienie.
+- OrderSnapshot – „memento” przechowujące listę pozycji + notatkę.
+- OrderCaretaker – stos snapshotów.
+
+### Użycie
+    var editor = new OrderEditor();
+    editor.add(croissant);
+    editor.note("Na miejscu");
+    
+    caretaker.push(editor.snapshot());
+    editor.note("Na wynos");
+    
+    editor.restore(caretaker.pop());
+
+Cel: cofanie zmian (undo-like behavior).
+
+# Testy jednostkowe (JUnit 5)
+
+Dla każdego wzorca przygotowano osobny test:
+- StrategyTest – czy strategia zmienia cenę.
+- CommandTest – czy komenda poprawnie modyfikuje OrderEditor.
+- IteratorTest – czy iteruje po elementach.
+- ObserverTest – czy obserwator dostaje powiadomienia.
+- MediatorTest – czy mediator wykonuje płatność i powiadamia.
+- StateTest – czy stan zmienia się poprawnie.
+- MementoTest – czy snapshot przywraca stan.
+
+### Uruchomienie:
+    mvn test
